@@ -12,19 +12,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class PaleoDiet {
+public class PaleoDiet extends Program{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idPaleo;
-
-	private double paleoKcal;
-	private double paleoProtPerDay;
-	private double paleoFatsPerDay;
-	private double paleoCarbsPerDay;
-	
-	@OneToMany(mappedBy="foodPaleo")
-	private List<Food> paleoFood;
 	
 	@OneToOne
 	private User paleoUser;
@@ -37,45 +29,7 @@ public class PaleoDiet {
 		this.idPaleo = idPaleo;
 	}
 
-	public double getPaleoKcal() {
-		return paleoKcal;
-	}
-
-	public void setPaleoKcal(double paleoKcal) {
-		this.paleoKcal = paleoKcal;
-	}
-
-	public double getPaleoProtPerDay() {
-		return paleoProtPerDay;
-	}
-
-	public void setPaleoProtPerDay(double paleoProtPerDay) {
-		this.paleoProtPerDay = paleoProtPerDay;
-	}
-
-	public double getPaleoFatsPerDay() {
-		return paleoFatsPerDay;
-	}
-
-	public void setPaleoFatsPerDay(double paleoFatsPerDay) {
-		this.paleoFatsPerDay = paleoFatsPerDay;
-	}
-
-	public double getPaleoCarbsPerDay() {
-		return paleoCarbsPerDay;
-	}
-
-	public void setPaleoCarbsPerDay(double paleoCarbsPerDay) {
-		this.paleoCarbsPerDay = paleoCarbsPerDay;
-	}
-
-	public List<Food> getPaleoFood() {
-		return paleoFood;
-	}
-
-	public void setPaleoFood(List<Food> paleoFood) {
-		this.paleoFood = paleoFood;
-	}
+	
 
 	public User getPaleoUser() {
 		return paleoUser;
@@ -85,27 +39,33 @@ public class PaleoDiet {
 		this.paleoUser = paleoUser;
 	}
 
-	public PaleoDiet(Long idPaleo, double paleoKcal, double paleoProtPerDay, double paleoFatsPerDay,
-			double paleoCarbsPerDay, List<Food> paleoFood, User paleoUser) {
-		super();
-		this.idPaleo = idPaleo;
-		this.paleoKcal = paleoKcal;
-		this.paleoProtPerDay = paleoProtPerDay;
-		this.paleoFatsPerDay = paleoFatsPerDay;
-		this.paleoCarbsPerDay = paleoCarbsPerDay;
-		this.paleoFood = paleoFood;
-		this.paleoUser = paleoUser;
-	}
+	
 
 	public PaleoDiet() {
 		super();
 	}
 
+	/**
+	 * @param kcalPerDay
+	 * @param protPerDay
+	 * @param fatPerDay
+	 * @param carbPerDay
+	 * @param food
+	 * @param idPaleo
+	 * @param paleoUser
+	 */
+	public PaleoDiet(double kcalPerDay, double protPerDay, double fatPerDay, double carbPerDay, List<Food> food,
+			Long idPaleo, User paleoUser) {
+		super(kcalPerDay, protPerDay, fatPerDay, carbPerDay, food);
+		this.idPaleo = idPaleo;
+		this.paleoUser = paleoUser;
+	}
+
 	@Override
 	public String toString() {
-		return "PaleoDiet [paleoKcal=" + paleoKcal + ", paleoProtPerDay=" + paleoProtPerDay + ", paleoFatsPerDay="
-				+ paleoFatsPerDay + ", paleoCarbsPerDay=" + paleoCarbsPerDay + ", paleoFood=" + paleoFood
-				+ ", paleoUser=" + paleoUser + "]";
+		return "PaleoDiet [idPaleo=" + idPaleo + ", paleoUser=" + paleoUser + "]";
 	}
+
+	
 
 }

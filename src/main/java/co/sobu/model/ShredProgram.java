@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
-public class ShredProgram {
+public class ShredProgram extends Program {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,14 +25,9 @@ public class ShredProgram {
 	private User shredUser;
 
 	private double actualWeight;
-	private double shredKcal;
-	private double shredProtPerDay;
-	private double shredFatsPerDay;
-	private double shredCarbsPerDay;
+	
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "shredF")
-	private List<Food> shredFood;
+
 
 	public Long getIdShred() {
 		return idShred;
@@ -58,68 +53,36 @@ public class ShredProgram {
 		this.actualWeight = actualWeight;
 	}
 
-	public double getShredKcal() {
-		return shredKcal;
-	}
 
-	public void setShredKcal(double shredKcal) {
-		this.shredKcal = shredKcal;
-	}
-
-	public double getShredProtPerDay() {
-		return shredProtPerDay;
-	}
-
-	public void setShredProtPerDay(double shredProtPerDay) {
-		this.shredProtPerDay = shredProtPerDay;
-	}
-
-	public double getShredFatsPerDay() {
-		return shredFatsPerDay;
-	}
-
-	public void setShredFatsPerDay(double shredFatsPerDay) {
-		this.shredFatsPerDay = shredFatsPerDay;
-	}
-
-	public double getShredCarbsPerDay() {
-		return shredCarbsPerDay;
-	}
-
-	public void setShredCarbsPerDay(double shredCarbsPerDay) {
-		this.shredCarbsPerDay = shredCarbsPerDay;
-	}
-
-	public List<Food> getShredFood() {
-		return shredFood;
-	}
-
-	public void setShredFood(List<Food> shredFood) {
-		this.shredFood = shredFood;
-	}
-
-	public ShredProgram(Long idShred, User shredUser, double actualWeight, double shredKcal, double shredProtPerDay,
-			double shredFatsPerDay, double shredCarbsPerDay, List<Food> shredFood) {
-		super();
-		this.idShred = idShred;
-		this.shredUser = shredUser;
-		this.actualWeight = actualWeight;
-		this.shredKcal = shredKcal;
-		this.shredProtPerDay = shredProtPerDay;
-		this.shredFatsPerDay = shredFatsPerDay;
-		this.shredCarbsPerDay = shredCarbsPerDay;
-		this.shredFood = shredFood;
-	}
+	
 
 	public ShredProgram() {
 		super();
 	}
 
+	/**
+	 * @param kcalPerDay
+	 * @param protPerDay
+	 * @param fatPerDay
+	 * @param carbPerDay
+	 * @param food
+	 * @param idShred
+	 * @param shredUser
+	 * @param actualWeight
+	 */
+	public ShredProgram(double kcalPerDay, double protPerDay, double fatPerDay, double carbPerDay, List<Food> food,
+			Long idShred, User shredUser, double actualWeight) {
+		super(kcalPerDay, protPerDay, fatPerDay, carbPerDay, food);
+		this.idShred = idShred;
+		this.shredUser = shredUser;
+		this.actualWeight = actualWeight;
+	}
+
 	@Override
 	public String toString() {
-		return "ShredProgram [shredUser=" + shredUser + ", actualWeight=" + actualWeight + ", shredKcal=" + shredKcal
-				+ ", shredProtPerDay=" + shredProtPerDay + ", shredFatsPerDay=" + shredFatsPerDay
-				+ ", shredCarbsPerDay=" + shredCarbsPerDay + "]";
+		return "ShredProgram [idShred=" + idShred + ", shredUser=" + shredUser + ", actualWeight=" + actualWeight + "]";
 	}
+
+	
 
 }

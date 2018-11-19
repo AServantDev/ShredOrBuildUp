@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table
-public class BuildProgram {
+public class BuildProgram extends Program {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,13 +25,6 @@ public class BuildProgram {
 	private User buildUser;
 
 	private double actualWeight;
-	private double buildKcal;
-	private double buildProtPerDay;
-	private double buildFatsPerDay;
-	private double buildCarbsPerDay;
-
-	@OneToMany(mappedBy="foodBuild")
-	private List<Food> buildFood;
 
 	public Long getIdBuild() {
 		return idBuild;
@@ -57,68 +50,28 @@ public class BuildProgram {
 		this.actualWeight = actualWeight;
 	}
 
-	public double getBuildKcal() {
-		return buildKcal;
-	}
-
-	public void setBuildKcal(double buildKcal) {
-		this.buildKcal = buildKcal;
-	}
-
-	public double getBuildProtPerDay() {
-		return buildProtPerDay;
-	}
-
-	public void setBuildProtPerDay(double buildProtPerDay) {
-		this.buildProtPerDay = buildProtPerDay;
-	}
-
-	public double getBuildFatsPerDay() {
-		return buildFatsPerDay;
-	}
-
-	public void setBuildFatsPerDay(double buildFatsPerDay) {
-		this.buildFatsPerDay = buildFatsPerDay;
-	}
-
-	public double getBuildCarbsPerDay() {
-		return buildCarbsPerDay;
-	}
-
-	public void setBuildCarbsPerDay(double buildCarbsPerDay) {
-		this.buildCarbsPerDay = buildCarbsPerDay;
-	}
-
-	@Override
-	public String toString() {
-		return "BuildProgram [buildUser=" + buildUser + ", actualWeight=" + actualWeight + ", buildKcal=" + buildKcal
-				+ ", buildProtPerDay=" + buildProtPerDay + ", buildFatsPerDay=" + buildFatsPerDay
-				+ ", buildCarbsPerDay=" + buildCarbsPerDay + "]";
-	}
-
-	public BuildProgram(Long idBuild, User buildUser, double actualWeight, double buildKcal, double buildProtPerDay,
-			double buildFatsPerDay, double buildCarbsPerDay, List<Food> buildFood) {
-		super();
-		this.idBuild = idBuild;
-		this.buildUser = buildUser;
-		this.actualWeight = actualWeight;
-		this.buildKcal = buildKcal;
-		this.buildProtPerDay = buildProtPerDay;
-		this.buildFatsPerDay = buildFatsPerDay;
-		this.buildCarbsPerDay = buildCarbsPerDay;
-		this.buildFood = buildFood;
-	}
-
 	public BuildProgram() {
 		super();
 	}
 
-	public List<Food> getBuildFood() {
-		return buildFood;
-	}
+	/**
+	 * @param kcalPerDay
+	 * @param protPerDay
+	 * @param fatPerDay
+	 * @param carbPerDay
+	 * @param food
+	 * @param idBuild
+	 * @param buildUser
+	 * @param actualWeight
+	 * @param buildFood
+	 */
+	public BuildProgram(double kcalPerDay, double protPerDay, double fatPerDay, double carbPerDay, List<Food> food,
+			Long idBuild, User buildUser, double actualWeight) {
+		super(kcalPerDay, protPerDay, fatPerDay, carbPerDay, food);
+		this.idBuild = idBuild;
+		this.buildUser = buildUser;
+		this.actualWeight = actualWeight;
 
-	public void setBuildFood(List<Food> buildFood) {
-		this.buildFood = buildFood;
 	}
 
 }

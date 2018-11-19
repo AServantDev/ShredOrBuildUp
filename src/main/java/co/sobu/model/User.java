@@ -1,5 +1,8 @@
 package co.sobu.model;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,26 +15,26 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "User")
-public class User {
+public class User{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long idUser;
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "shredUser")
+	@OneToOne(mappedBy = "shredUser", cascade=CascadeType.REMOVE)
 	private ShredProgram shred;
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "buildUser")
+	@OneToOne(mappedBy = "buildUser", cascade=CascadeType.REMOVE)
 	private BuildProgram build;
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "cetoUser")
+	@OneToOne(mappedBy = "cetoUser", cascade=CascadeType.REMOVE)
 	private CetogeneDiet ceto;
 
 	@JsonIgnore
-	@OneToOne(mappedBy = "paleoUser")
+	@OneToOne(mappedBy = "paleoUser", cascade=CascadeType.REMOVE)
 	private PaleoDiet paleo;
 
 	private String name;
@@ -49,6 +52,15 @@ public class User {
 	private double FatsPerDay;
 	private double CarbsPerDays;
 	private String gender;
+	private double coefSportif;
+
+	public double getCoefSportif() {
+		return coefSportif;
+	}
+
+	public void setCoefSportif(double coefSportif) {
+		this.coefSportif = coefSportif;
+	}
 
 	public Long getIdUser() {
 		return idUser;
@@ -188,7 +200,7 @@ public class User {
 
 	public User(Long idUser, ShredProgram shred, BuildProgram build, CetogeneDiet ceto, PaleoDiet paleo, String name,
 			String lastname, int age, double heigth, double weight, String email, String password, double kcalPerDay,
-			double protPerDay, double fatsPerDay, double carbsPerDays, String gender) {
+			double protPerDay, double fatsPerDay, double carbsPerDays, String gender, double coefSport) {
 		super();
 		this.idUser = idUser;
 		this.shred = shred;
@@ -207,6 +219,7 @@ public class User {
 		FatsPerDay = fatsPerDay;
 		CarbsPerDays = carbsPerDays;
 		this.gender = gender;
+		
 	}
 
 	public User() {
